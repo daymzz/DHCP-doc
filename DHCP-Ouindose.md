@@ -105,9 +105,51 @@ Passons au serveur, il faut lui ajouter le rôle DHCP.
 
 ### Sur le poste client
 
-En lançant le client, le serveur DHCP devrait lui attribuer une adresse IP compris dans la plage de notre étendue. Vérifions ça à l'aide de ```ipconfig /all ``` dans la console.
+En lançant le client, le serveur DHCP devrait lui attribuer une adresse IP compris dans la plage de notre étendue. Vérifions ça à l'aide de la commande ```ipconfig /all ``` dans la console client.
 
 - Voici un aperçu :
 
 ![ipconfig](https://i.imgur.com/UOM1cxv.png)
 <HR>
+
+> On retrouve l'adresse IP du serveur DHCP qui est 172.20.0.1.
+> L'adresse IP de notre client a bien été attribué par le serveur (172.20.0.110) et dans la plage IP sélectionnée.
+
+### Retour sur le serveur
+
+> Munissez vous de l'adresse MAC du poste client. Ici *08-00-27-2E-1D-AF*
+
+Nous allons voir comment créer une réservation  d'une adresse IP pour un appareil en particulier via son adresse MAC.
+
+<HR>
+
+- Toujours dans la console DHCP, clique droit sur *Réservations* puis *Nouvelle réservation*
+
+![resa](https://i.imgur.com/mrcy85O.png)
+<HR>
+
+- Mettre un nom pour la réservation, insérer __l'adresse IP__ voulant être réservée ainsi que __l'adresse MAC__ de l'appareil concerné avec une prise en charge __DHCP__
+
+![resa2](https://i.imgur.com/84zbinh.png)
+<HR>
+
+> L'adresse 172.20.0.120 a été réservé pour notre poste client, procédons à l'actualisation de l'adresse IP client
+
+### De nouveau sur le poste client
+
+- Commençons par se débarasser de notre IP actuelle.
+  ```ipconfig /release```
+
+![release](https://i.imgur.com/IEOZi36.png)
+<HR>
+
+- Une fois débarasser de l'IP, demandons en une nouvelle
+  ```ipconfig /renew```
+  > Il est possible de vérifier si notre IP a bien été relaché avec un ```ipconfig /all```
+
+![new](https://i.imgur.com/gXJkfuQ.png)
+
+Nous voilà avec une nouvelle IP et bien celle demandée lors de la réservation.
+
+<HR> 
+
